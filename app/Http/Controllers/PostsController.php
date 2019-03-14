@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
-
+use App\Http\Requests\posts\StorePostRequest;
+use App\Http\Requests\posts\UpdatePostRequest;
 class PostsController extends Controller
 {
     /**
@@ -35,8 +36,9 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
+        $request->validated();
         Post::create($request->all());
         return redirect()->route('posts.index');
     }
@@ -72,8 +74,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
+        $request->validated();
         $post = Post::find($id);
         $post->update($request->all());
 

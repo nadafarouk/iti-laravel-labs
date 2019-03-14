@@ -17,6 +17,6 @@
       <td>{{$post->post_text}}</td>
     </tr>
     </tbody>
-
+</table>
 
 @endsection

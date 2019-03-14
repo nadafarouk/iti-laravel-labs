@@ -2,7 +2,15 @@
 
 @section('content')
 <a href="{{route('posts.index')}}" class="btn btn-secondary">Back</a>
-
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{route('posts.store')}}" method="POST">
     @csrf
     <div class="form-group">
