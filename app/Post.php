@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Sluggable;
+//use Sluggable;
+use Cviebrock\EloquentSluggable\Sluggable;
 class Post extends Model
 {
+    use Sluggable;
     protected $fillable = [
         'post_title',
         'post_text',
+       // 'slug',
     ];
     public function user()
     {
@@ -19,7 +22,7 @@ class Post extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'post_title'
             ]
         ];
     }
