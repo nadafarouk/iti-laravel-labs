@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\User as Users;
 use App\Http\Requests\posts\StorePostRequest;
 use App\Http\Requests\posts\UpdatePostRequest;
+use Laravel\Passport\Bridge\User;
+use DB;
 class PostsController extends Controller
 {
     /**
@@ -27,7 +30,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create',['users'=> Users::all()]);
     }
 
     /**
@@ -38,8 +41,10 @@ class PostsController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $request->validated();
-        Post::create($request->all());
+        if (DB::table('users')->where('id', $request->get('user_id'))->exists()){
+            $request->validated();
+            Post::create($request->all());
+         }
         return redirect()->route('posts.index');
     }
 
@@ -64,7 +69,7 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
 
-        return view('posts.edit',['post' => $post]);
+        return view('posts.edit',['post' => $post , "users" => Users::all()]);
     }
 
     /**

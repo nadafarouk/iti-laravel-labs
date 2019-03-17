@@ -15,6 +15,14 @@
         @method('PUT')
         @csrf
         <div class="form-group">
+                <label for="Picking user">Pick a User</label>
+                    <select class="form-control" name="user_id">
+                        @foreach($users as $user)
+                        <option value="{{$user->id}}">{{$user->name}}</option>
+                        @endforeach
+                    </select>
+        </div>
+        <div class="form-group">
             <label for="exampleInputEmail1">Title</label>
             <input name="post_title" value="{{$post->post_title}}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
         </div>
